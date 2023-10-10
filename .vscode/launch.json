@@ -24,6 +24,25 @@
             ],
             "console": "integratedTerminal",
             "justMyCode": false,
+        },
+        {
+            "name": "Debug mlserver infer",
+            "type": "python",
+            "request": "launch",
+            "module": "mlserver.cli.main",
+            "args": [
+                "infer",
+                "--model-name",
+                "content-type-example",
+                "--input-data-path",
+                "inference-request.json",
+                "--output-data-path",
+                "output.json"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false
         }
     ]
 }
