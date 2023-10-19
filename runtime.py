@@ -13,7 +13,7 @@ class EchoRuntime(MLModel):
     async def predict(self, payload: InferenceRequest) -> InferenceResponse:
         outputs = []
         for request_input in payload.inputs:
-            print(request_input.name)
+            print(f"request input name: {request_input.name}")
             decoded_input = self.decode(request_input)
             print(decoded_input)
             print(f"------ Encoded Input ({request_input.name}) ------")
