@@ -47,6 +47,6 @@ results.append(response)
 
 # Note that here we just convert from the gRPC types to the MLServer types
 inference_response = ModelInferResponseConverter.to_types(response)
-raw_json = NumpyCodec.decode_response(inference_response)
+raw_json = NumpyCodec.decode_output(inference_response.outputs[0])
 # output = json.loads(raw_json[0])
-# pp.pprint(output)
+pp.pprint(raw_json)
