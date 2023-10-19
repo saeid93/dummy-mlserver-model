@@ -5,7 +5,7 @@ payload = {
         {
             "name": "parameters-np",
             "datatype": "FP16",
-            "shape": [1, 3],
+            "shape": [1, 4],
             "data": [1, 2, 0, 4],
             "parameters": {
                 "content_type": "np"
