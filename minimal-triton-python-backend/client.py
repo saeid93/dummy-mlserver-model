@@ -34,8 +34,8 @@ model_name = "add_sub"
 shape = [4]
 
 with httpclient.InferenceServerClient("localhost:8000") as client:
-    input0_data = np.random.rand(*shape).astype(np.float32)
-    input1_data = np.random.rand(*shape).astype(np.float32)
+    input0_data = np.array([1, 2, 3, 5], dtype=np.float32)
+    input1_data = np.array([3, 2, 1, 4], dtype=np.float32)
     inputs = [
         httpclient.InferInput(
             "INPUT0", input0_data.shape, np_to_triton_dtype(input0_data.dtype)

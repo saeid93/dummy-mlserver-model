@@ -6,7 +6,7 @@ payload = {
             "name": "INPUT0",
             "datatype": "FP32",
             "shape": [4],
-            "data": [1, 2, 0, 1]
+            "data": [1, 4, 0, 1]
         },
         {
             "name": "INPUT1",

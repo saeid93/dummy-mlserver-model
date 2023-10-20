@@ -4,7 +4,6 @@ import mlserver.grpc.dataplane_pb2_grpc as dataplane
 import mlserver.grpc.converters as converters
 from mlserver.codecs.numpy import NumpyCodec
 import mlserver.types as types
-import json
 import numpy as np
 from pprint import PrettyPrinter
 pp = PrettyPrinter(indent=4)
@@ -48,5 +47,4 @@ results.append(response)
 # Note that here we just convert from the gRPC types to the MLServer types
 inference_response = ModelInferResponseConverter.to_types(response)
 raw_json = NumpyCodec.decode_output(inference_response.outputs[0])
-# output = json.loads(raw_json[0])
 pp.pprint(raw_json)
