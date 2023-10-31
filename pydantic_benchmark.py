@@ -1,7 +1,9 @@
 import numpy as np
 import time
 from typing import Tuple, List, Any
-
+from packaging import version
+import pydantic
+from pydantic import TypeAdapter
 
 def flatten_nested_list(input_data) -> List[Any]:
     flattened = []
@@ -17,10 +19,10 @@ class TimeIt:
     k = 1024
 
     def __init__(
-        self, data: List[Any], type: type, size: Tuple[int, int], flatten: bool = False
+        self, data: List[Any], datatype: type, size: Tuple[int, int], flatten: bool = False
     ):
         self.data = data
-        self.type = type
+        self.datatype = datatype
         self.size = size
         self.flatten = flatten
 
@@ -41,6 +43,9 @@ class TimeIt:
 
     def pydantic_type(self):
         start = time.time()
+        if version.parse(pydantic.__version__) >= version.parse('2'):
+            adapter = TypeAdapter(List[self.datatype])
+            adapter.validate_python(self.data)
         # transformation
         return time.time() - start
 
@@ -54,9 +59,9 @@ class TimeIt:
         data = flatten_nested_list(self.data) if self.flatten else self.data
         for item in data:
             try:
-                self.type(item)
+                self.datatype(item)
             except ValueError:
-                print(f"type mismatch: {item} for {self.type}")
+                print(f"type mismatch: {item} for {self.datatype}")
         return time.time() - start
 
     def for_loop_size(self):
@@ -77,12 +82,27 @@ sample_data = np.random.random([dimension * dimension]).tolist()
 
 print(len(sample_data))
 
-time_it = TimeIt(data=sample_data, type=np.float64, size=(dimension, dimension))
+time_it = TimeIt(data=sample_data, datatype=float, size=(dimension, dimension))
 
-print(f"flatten the for loop: {time_it.flatting_time()}")
-print(f"validate type for loop: {time_it.for_loop_type()}")
-print(f"validate size for loop: {time_it.for_loop_size()}")
+# for loop timings
+print(f"flatten the for_loop: {time_it.flatting_time()}")
 print(f"data size in bytes: {time_it.size_of_data_bytes()}")
+
+# for loop timings
+print("\n")
+print(f"validate type for_loop: {time_it.for_loop_type()}")
+print(f"validate size for_loop: {time_it.for_loop_size()}")
+
+
+# Pydantic v1
+
+
+
+# Pydantic v2
+print("\n")
+print(f"validate type pydantic v2: {time_it.pydantic_type()}")
+print(f"validate size pydantic v2: {time_it.pydantic_size()}")
+
 
 # 1. Find the datatype recieved at the grpc and rest entry points
 # 2. Find Pydantic knobs that checks for their change
