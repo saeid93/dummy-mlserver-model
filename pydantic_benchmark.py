@@ -101,7 +101,7 @@ print(f"validate size for_loop: {time_it.for_loop_size()}")
 # Pydantic v2
 print("\n")
 print(f"validate type pydantic v2: {time_it.pydantic_type()}")
-print(f"validate size pydantic v2: {time_it.pydantic_size()}")
+# print(f"validate size pydantic v2: {time_it.pydantic_size()}")
 
 
 # 1. Find the datatype recieved at the grpc and rest entry points
