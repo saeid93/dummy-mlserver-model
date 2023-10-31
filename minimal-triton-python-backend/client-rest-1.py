@@ -2,18 +2,8 @@ import requests
 
 payload = {
     "inputs": [
-        {
-            "name": "INPUT0",
-            "datatype": "FP32",
-            "shape": [4],
-            "data": [1, 4, 0, 1]
-        },
-        {
-            "name": "INPUT1",
-            "datatype": "FP32",
-            "shape": [4],
-            "data": [1, 2, 0, 1]
-        }
+        {"name": "INPUT0", "datatype": "FP32", "shape": [4], "data": [1, 4, 0, 1]},
+        {"name": "INPUT1", "datatype": "FP3332", "shape": [4], "data": [1, 2, 0, 4]},
     ]
 }
 
@@ -31,8 +21,6 @@ payload = {
 #     ]
 # }
 
-response = requests.post(
-    "http://localhost:8000/v2/models/add_sub/infer",
-    json=payload
-)
+response = requests.post("/v2/models/sum-model/infer", json=payload)
+print(response)
 print(response.json())

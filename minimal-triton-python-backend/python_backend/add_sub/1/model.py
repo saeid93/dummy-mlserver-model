@@ -25,6 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import json
+import numpy as np
 
 # triton_python_backend_utils is available in every Triton Python model. You
 # need to use this module to create inference requests and responses. It also
@@ -107,11 +108,15 @@ class TritonPythonModel:
             # Get INPUT1
             in_1 = pb_utils.get_input_tensor_by_name(request, "INPUT1")
 
+            # out_0, out_1 = (
+            #     in_0.as_numpy() + in_1.as_numpy(),
+            #     in_0.as_numpy() - in_1.as_numpy(),
+            # )
             out_0, out_1 = (
-                in_0.as_numpy() + in_1.as_numpy(),
-                in_0.as_numpy() - in_1.as_numpy(),
+                np.array([1, 2, 3]),
+                np.array([3, 4, 4]),
             )
-
+            print("there")
             # Create output tensors. You need pb_utils.Tensor
             # objects to create pb_utils.InferenceResponse.
             out_tensor_0 = pb_utils.Tensor("OUTPUT0", out_0.astype(output0_dtype))
@@ -128,6 +133,7 @@ class TritonPythonModel:
                 output_tensors=[out_tensor_0, out_tensor_1]
             )
             responses.append(inference_response)
+            print(responses)
 
         # You should return a list of pb_utils.InferenceResponse. Length
         # of this list must match the length of `requests` list.

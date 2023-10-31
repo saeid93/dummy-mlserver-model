@@ -45,14 +45,14 @@ output [
   {
     name: "OUTPUT0"
     data_type: TYPE_FP32
-    dims: [ 4 ]
+    dims: [ 2 ]
   }
 ]
 output [
   {
     name: "OUTPUT1"
     data_type: TYPE_FP32
-    dims: [ 4 ]
+    dims: [ 2 ]
   }
 ]
 

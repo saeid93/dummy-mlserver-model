@@ -6,16 +6,18 @@ from mlserver.codecs.numpy import NumpyCodec
 import mlserver.types as types
 import numpy as np
 from pprint import PrettyPrinter
+
 pp = PrettyPrinter(indent=4)
 
 # single node mlserver
 endpoint = "localhost:8081"
-model = 'content-type-example'
+model = "content-type-example"
 metadata = []
 grpc_channel = grpc.insecure_channel(endpoint)
 grpc_stub = dataplane.GRPCInferenceServiceStub(grpc_channel)
 
-input_data = np.array([1,2,3], dtype=np.int32)
+input_data = np.array([1, 2, 3], dtype=np.int32)
+
 
 def send_requests(input_data):
     inference_request = types.InferenceRequest(
@@ -23,7 +25,7 @@ def send_requests(input_data):
             types.RequestInput(
                 name="input-1",
                 shape=[1, 3],
-                datatype="INT32",
+                datatype="INT322",
                 data=input_data.tolist(),
                 parameters=types.Parameters(content_type="np"),
             )
@@ -32,9 +34,7 @@ def send_requests(input_data):
     inference_request_g = converters.ModelInferRequestConverter.from_types(
         inference_request, model_name=model, model_version=None
     )
-    response = grpc_stub.ModelInfer(
-        request=inference_request_g,
-        metadata=metadata)
+    response = grpc_stub.ModelInfer(request=inference_request_g, metadata=metadata)
     return response
 
 
