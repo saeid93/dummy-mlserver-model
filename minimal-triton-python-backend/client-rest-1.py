@@ -1,9 +1,24 @@
 import requests
+import numpy as np
+
+dimension = 1024 * 1024
+sample_data = np.random.random([dimension * dimension]).tolist()
+sample_data[1024*1000] = 'ddd'
 
 payload = {
     "inputs": [
-        {"name": "INPUT0", "datatype": "FP32", "shape": [4], "data": [1, 4, 0, 1]},
-        {"name": "INPUT1", "datatype": "FP3332", "shape": [4], "data": [1, 2, 0, 4]},
+        {
+            "name": "INPUT0",
+            "datatype": "FP32",
+            "shape": [dimension * dimension],
+            "data": sample_data
+        },
+        {
+            "name": "INPUT1",
+            "datatype": "FP32",
+            "shape": [dimension * dimension],
+            "data": sample_data
+        }
     ]
 }
 
@@ -21,6 +36,8 @@ payload = {
 #     ]
 # }
 
-response = requests.post("/v2/models/sum-model/infer", json=payload)
-print(response)
+response = requests.post(
+    "http://localhost:8000/v2/models/add_sub/infer",
+    json=payload
+)
 print(response.json())

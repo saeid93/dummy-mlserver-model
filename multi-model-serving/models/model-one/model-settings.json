@@ -1,0 +1,5 @@
+{
+    "name": "model-one",
+    "implementation": "runtime.EchoRuntimeOne",
+    "request_validation": true
+}

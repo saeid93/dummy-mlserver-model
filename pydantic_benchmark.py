@@ -44,8 +44,11 @@ class TimeIt:
     def pydantic_type(self):
         start = time.time()
         if version.parse(pydantic.__version__) >= version.parse('2'):
-            adapter = TypeAdapter(List[self.datatype])
-            adapter.validate_python(self.data)
+            try:
+                adapter = TypeAdapter(List[self.datatype])
+                adapter.validate_python(self.data)
+            except ValueError:
+                print('not a valid entry')
         # transformation
         return time.time() - start
 
@@ -75,11 +78,36 @@ class TimeIt:
         assert len(data) == size_of
         return time.time() - start
 
+    def numpy_type(self):
+        start = time.time()
+        np.array(self.data, dtype=self.datatype)
+        return time.time() - start
+
+    def numpy_size(self):
+        # TODO not precise, it only checks for the entire size
+        # it doesn't check in the nested loops
+        start = time.time()
+        return time.time() - start
+
+    def map_type(self):
+        start = time.time()
+        try:
+            all(map(lambda l: self.datatype(l), self.data))
+        except ValueError:
+            print('not a valid entry')
+        return time.time() - start
+
+    def map_size(self):
+        # TODO not precise, it only checks for the entire size
+        # it doesn't check in the nested loops
+        start = time.time()
+        return time.time() - start
+
 
 dimension = 1024  # TODO assume flatten TODO add to design doc
 np.random.seed(53)
 sample_data = np.random.random([dimension * dimension]).tolist()
-
+sample_data[1024*1000] = 'ddd'
 print(len(sample_data))
 
 time_it = TimeIt(data=sample_data, datatype=float, size=(dimension, dimension))
@@ -99,10 +127,19 @@ print(f"validate size for_loop: {time_it.for_loop_size()}")
 
 
 # Pydantic v2
-print("\n")
+# print("\n")
 print(f"validate type pydantic v2: {time_it.pydantic_type()}")
-# print(f"validate size pydantic v2: {time_it.pydantic_size()}")
+print(f"validate size pydantic v2: {time_it.pydantic_size()}")
 
+# numpy
+# print("\n")
+# print(f"validate type numpy: {time_it.numpy_type()}")
+# print(f"validate size numpy: {time_it.numpy_size()}")
+
+# map
+print("\n")
+print(f"validate type map: {time_it.map_type()}")
+print(f"validate size map: {time_it.map_size()}")
 
 # 1. Find the datatype recieved at the grpc and rest entry points
 # 2. Find Pydantic knobs that checks for their change
