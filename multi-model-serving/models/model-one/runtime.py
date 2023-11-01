@@ -6,10 +6,10 @@ from mlserver.codecs import DecodedParameterName
 from mlserver.settings import ModelSettings
 from fastapi.encoders import jsonable_encoder
 
-_to_exclude = {
-    "parameters": {DecodedParameterName, "headers"},
-    "inputs": {"__all__": {"parameters": {DecodedParameterName, "headers"}}},
-}
+# _to_exclude = {
+#     "parameters": {DecodedParameterName, "headers"},
+#     "inputs": {"__all__": {"parameters": {DecodedParameterName, "headers"}}},
+# }
 
 
 class EchoRuntimeOne(MLModel):

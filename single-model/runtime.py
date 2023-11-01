@@ -29,7 +29,7 @@ class EchoRuntime(MLModel):
             outputs.append(
                 ResponseOutput(
                     name=request_input.name,
-                    datatype="FP16",
+                    datatype="INT32",
                     shape=request_input.shape,
                     data=request_input.data,
                 )

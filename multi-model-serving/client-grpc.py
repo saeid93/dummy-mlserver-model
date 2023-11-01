@@ -11,7 +11,7 @@ pp = PrettyPrinter(indent=4)
 
 # single node mlserver
 endpoint = "localhost:8081"
-model = "content-type-example"
+model = "model-one"
 metadata = []
 grpc_channel = grpc.insecure_channel(endpoint)
 grpc_stub = dataplane.GRPCInferenceServiceStub(grpc_channel)
@@ -25,7 +25,7 @@ def send_requests(input_data):
             types.RequestInput(
                 name="input-1",
                 shape=[1, 3],
-                datatype="INT322",
+                datatype="INT32",
                 data=input_data.tolist(),
                 parameters=types.Parameters(content_type="np"),
             )
