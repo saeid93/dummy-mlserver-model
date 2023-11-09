@@ -26,7 +26,7 @@ def send_requests(input_data):
                 name="input-1",
                 shape=[1, 3],
                 datatype="INT32",
-                data=input_data.tolist(),
+                data=[1,2,3],
                 parameters=types.Parameters(content_type="np"),
             )
         ]

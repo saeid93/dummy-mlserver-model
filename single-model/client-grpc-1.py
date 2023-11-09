@@ -5,6 +5,7 @@ import mlserver.grpc.converters as converters
 from mlserver.codecs.numpy import NumpyCodec
 import mlserver.types as types
 import numpy as np
+from mlserver.types import Datatype
 from pprint import PrettyPrinter
 
 pp = PrettyPrinter(indent=4)
@@ -25,9 +26,9 @@ def send_requests(input_data):
             types.RequestInput(
                 name="input-1",
                 shape=[1, 3],
-                datatype="INT32",
+                datatype=Datatype("INT32"),
                 data=input_data.tolist(),
-                parameters=types.Parameters(content_type="np"),
+                parameters=types.Parameters(content_type="np", models="dddd"),
             )
         ]
     )

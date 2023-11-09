@@ -1,7 +1,7 @@
 import json
 
 from mlserver import MLModel
-from mlserver.types import InferenceRequest, InferenceResponse, ResponseOutput
+from mlserver.types import InferenceRequest, InferenceResponse, ResponseOutput, Parameters
 from mlserver.codecs import DecodedParameterName
 from mlserver.settings import ModelSettings
 from fastapi.encoders import jsonable_encoder
@@ -28,9 +28,10 @@ class EchoRuntimeOne(MLModel):
             outputs.append(
                 ResponseOutput(
                     name=request_input.name,
-                    datatype="FP16",
+                    datatype="INT32",
                     shape=request_input.shape,
                     data=request_input.data,
+                    parameters=Parameters(content_type='np')
                 )
             )
 

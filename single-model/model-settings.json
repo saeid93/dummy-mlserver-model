@@ -1,4 +1,9 @@
 {
     "name": "content-type-example",
-    "implementation": "runtime.EchoRuntime"
+    "implementation": "runtime.EchoRuntime",
+    "inputs": [{
+        "name": "input-0",
+        "datatype": "INT32",
+        "shape": [4, 5]
+    }]
 }

@@ -1,5 +1,10 @@
 {
     "name": "model-one",
     "implementation": "runtime.EchoRuntimeOne",
-    "request_validation": true
+    "payload_validation": true,
+    "inputs": [{
+        "name": "input-0",
+        "datatype": "INT32",
+        "shape": [3, 1]
+    }]
 }

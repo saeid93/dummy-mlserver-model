@@ -1,24 +1,29 @@
 import requests
 import numpy as np
 
-dimension = 1024 * 1024
-sample_data = np.random.random([dimension * dimension]).tolist()
-sample_data[1024*1000] = 'ddd'
+dimension = 4
+sample_data = np.random.random([4]).tolist()
 
 payload = {
     "inputs": [
         {
             "name": "INPUT0",
-            "datatype": "FP32",
-            "shape": [dimension * dimension],
+            "datatype": "INT32",
+            "shape": [4],
             "data": sample_data
         },
         {
             "name": "INPUT1",
-            "datatype": "FP32",
-            "shape": [dimension * dimension],
+            "datatype": "INT32",
+            "shape": [4],
             "data": sample_data
         }
+        # {
+        #     "name": "INPUT2",
+        #     "datatype": "FP32",
+        #     "shape": [4],
+        #     "data": sample_data
+        # },
     ]
 }
 

@@ -80,7 +80,10 @@ class TimeIt:
 
     def numpy_type(self):
         start = time.time()
-        np.array(self.data, dtype=self.datatype)
+        try:
+            np.array(self.data, dtype=self.datatype)
+        except ValueError as error:
+            print(error)
         return time.time() - start
 
     def numpy_size(self):
@@ -113,6 +116,7 @@ print(len(sample_data))
 time_it = TimeIt(data=sample_data, datatype=float, size=(dimension, dimension))
 
 # for loop timings
+print("\n")
 print(f"flatten the for_loop: {time_it.flatting_time()}")
 print(f"data size in bytes: {time_it.size_of_data_bytes()}")
 
@@ -122,19 +126,15 @@ print(f"validate type for_loop: {time_it.for_loop_type()}")
 print(f"validate size for_loop: {time_it.for_loop_size()}")
 
 
-# Pydantic v1
-
-
-
 # Pydantic v2
-# print("\n")
+print("\n")
 print(f"validate type pydantic v2: {time_it.pydantic_type()}")
 print(f"validate size pydantic v2: {time_it.pydantic_size()}")
 
 # numpy
-# print("\n")
-# print(f"validate type numpy: {time_it.numpy_type()}")
-# print(f"validate size numpy: {time_it.numpy_size()}")
+print("\n")
+print(f"validate type numpy: {time_it.numpy_type()}")
+print(f"validate size numpy: {time_it.numpy_size()}")
 
 # map
 print("\n")

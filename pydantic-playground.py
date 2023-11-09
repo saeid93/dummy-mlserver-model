@@ -25,7 +25,7 @@
 # except ValidationError as e:
 #     print(e)
 #     """
-#     1 validation error for User
+    # 1 validation error for User
 #     age
 #       Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='twelve', input_type=str]
 #     """

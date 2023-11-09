@@ -1,6 +1,0 @@
-name: "echo_model"
-backend: "python"
-max_batch_size: 1
-
-python_version: "3"
-default_model_filename: "echo_model.py"
