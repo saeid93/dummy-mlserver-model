@@ -118,34 +118,45 @@ time_it = TimeIt(data=sample_data, datatype=float, size=(dimension, dimension))
 # for loop timings
 print("\n")
 print(f"flatten the for_loop: {time_it.flatting_time()}")
-print(f"data size in bytes: {time_it.size_of_data_bytes()}")
+# print(f"data size in bytes: {time_it.size_of_data_bytes()}")
 
 # for loop timings
 print("\n")
 print(f"validate type for_loop: {time_it.for_loop_type()}")
-print(f"validate size for_loop: {time_it.for_loop_size()}")
+# print(f"validate size for_loop: {time_it.for_loop_size()}")
 
 
 # Pydantic v2
 print("\n")
 print(f"validate type pydantic v2: {time_it.pydantic_type()}")
-print(f"validate size pydantic v2: {time_it.pydantic_size()}")
+# print(f"validate size pydantic v2: {time_it.pydantic_size()}")
 
 # numpy
 print("\n")
 print(f"validate type numpy: {time_it.numpy_type()}")
-print(f"validate size numpy: {time_it.numpy_size()}")
+# print(f"validate size numpy: {time_it.numpy_size()}")
 
 # map
 print("\n")
 print(f"validate type map: {time_it.map_type()}")
-print(f"validate size map: {time_it.map_size()}")
+# print(f"validate size map: {time_it.map_size()}")
 
-# 1. Find the datatype recieved at the grpc and rest entry points
-# 2. Find Pydantic knobs that checks for their change
-# 3. Time the difference between Pydantic V1, V2, for loop or any other similar methods
-# 4. Use real data instad of dummy python
-# 5. Check how Triton is doing it
-# 6. Make sure the logic is consistent, e.g. for now I don't think what I am doing is exactly inline
-#    with the excpected datatype check in the MLServer since I am checking a numpy string but there
-#    it recieves an array
+
+# -------------- output --------------
+# flatten the for_loop: 0.04928731918334961
+
+
+# type mismatch: ddd for <class 'float'>
+# validate type for_loop: 0.03145909309387207
+
+
+# not a valid entry
+# validate type pydantic v2: 0.043160438537597656
+
+
+# could not convert string to float: 'ddd'
+# validate type numpy: 0.017434120178222656
+
+
+# not a valid entry
+# validate type map: 0.049793243408203125
